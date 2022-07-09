@@ -3,6 +3,8 @@ extends KinematicBody
 onready var camera = $Cabeza/Camera
 onready var rotation_helper = $Cabeza
 
+export (PackedScene) var Bullet
+
 var gravity = -30
 var max_speed = 8
 var mouse_sensitivity = 0.002  # radians/pixel
@@ -39,3 +41,10 @@ func _physics_process(delta):
 	velocity.x = desired_velocity.x
 	velocity.z = desired_velocity.z
 	velocity = move_and_slide(velocity, Vector3.UP, true)
+	
+	#disparo
+	if Input.is_action_just_pressed("shoot"):
+		var b = Bullet.instance()
+		owner.add_child(b)
+		b.transform = $Cabeza/Chutspot.global_transform
+		b.velocity = -b.transform.basis.z * b.muzzle_velocity

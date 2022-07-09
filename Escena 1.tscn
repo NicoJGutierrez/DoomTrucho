@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://prototype textures/prototype_512x512_yellow.png" type="Texture" id=1]
 [ext_resource path="res://prototype textures/prototype_512x512_blue3.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://prototype textures/prototype_512x512_grey1.png" type="Texture" id=5]
 [ext_resource path="res://prototype textures/prototype_512x512_blue1.png" type="Texture" id=6]
 [ext_resource path="res://Gun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Bullet.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CubeMesh" id=3]
 
@@ -111,6 +112,7 @@ shape = SubResource( 2 )
 
 [node name="Player" type="KinematicBody" parent="."]
 script = ExtResource( 4 )
+Bullet = ExtResource( 9 )
 
 [node name="Cuerpo" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.6, 0, 1, 0 )
@@ -122,6 +124,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../Cuerpo")
 material/0 = SubResource( 9 )
+
+[node name="Chutspot" type="Spatial" parent="Player/Cabeza"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11608, -0.918235 )
 
 [node name="Gun2" parent="Player/Cabeza" instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.227932, -0.571353 )
