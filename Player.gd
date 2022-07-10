@@ -5,9 +5,11 @@ onready var rotation_helper = $Cabeza
 
 export (PackedScene) var Bullet
 
-var gravity = -30
+var gravity = -65
 var max_speed = 8
 var mouse_sensitivity = 0.002  # radians/pixel
+var jumps = 2
+var jumpforce = 20
 
 var velocity = Vector3()
 
@@ -35,13 +37,23 @@ func _unhandled_input(event):
 		rotation_helper.rotation.x = clamp(rotation_helper.rotation.x, -1.2, 1.2)
 		
 func _physics_process(delta):
-	velocity.y += gravity * delta
+	
 	var desired_velocity = get_input() * max_speed
 
 	velocity.x = desired_velocity.x
 	velocity.z = desired_velocity.z
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
+	if is_on_floor():
+		jumps = 2
+		
+	else:
+		velocity.y += gravity * delta
+		
+	if Input.is_action_just_pressed("jump") and jumps > 0:
+			velocity.y = jumpforce
+			jumps -= 1
+
 	#disparo
 	if Input.is_action_just_pressed("shoot"):
 		var b = Bullet.instance()

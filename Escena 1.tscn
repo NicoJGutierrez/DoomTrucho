@@ -24,7 +24,7 @@ uv1_scale = Vector3( 4, 4, 1 )
 [sub_resource type="CylinderMesh" id=5]
 top_radius = 0.5
 bottom_radius = 0.4
-height = 1.5
+height = 1.6
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_texture = ExtResource( 1 )
@@ -111,6 +111,7 @@ material/0 = SubResource( 12 )
 shape = SubResource( 2 )
 
 [node name="Player" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.749651, 0 )
 script = ExtResource( 4 )
 Bullet = ExtResource( 9 )
 
