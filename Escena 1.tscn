@@ -51,7 +51,7 @@ __meta__ = {
 }
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.581703, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5 )
 script = ExtResource( 4 )
 Bullet = ExtResource( 9 )
 
