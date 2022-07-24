@@ -29,7 +29,7 @@ size = Vector3( 0.5, 0.5, 0.5 )
 albedo_texture = ExtResource( 3 )
 uv1_scale = Vector3( 3, 2, 1 )
 
-[node name="Zombie" type="KinematicBody"]
+[node name="Zombie" type="KinematicBody" groups=["Zombies"]]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
 script = ExtResource( 4 )
 

@@ -84,3 +84,6 @@ shape = SubResource( 8 )
 
 [node name="Zombie" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -6.09804, 4.76837e-07, -2.41455 )
+
+[node name="Zombie2" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -3.39909, 4.76837e-07, -3.63788 )
