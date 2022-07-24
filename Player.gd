@@ -46,12 +46,12 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
 	if is_on_floor():
-		print("floor")
+		#print("floor")
 		jumps = 2
 		velocity.y = -on_floor_margin * delta
 		
 	else:
-		print("air")
+		#print("air")
 		velocity.y += gravity * delta
 		
 	if Input.is_action_just_pressed("jump") and jumps > 0:

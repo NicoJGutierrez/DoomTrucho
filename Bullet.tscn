@@ -27,3 +27,5 @@ shape = SubResource( 13 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 14 )
 material/0 = SubResource( 15 )
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
