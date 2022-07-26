@@ -2,7 +2,7 @@ extends KinematicBody
 
 
 # Declare member variables here. Examp
-export var max_health = 2
+export var max_health = 3
 var health
 
 # Called when the node enters the scene tree for the first time.
