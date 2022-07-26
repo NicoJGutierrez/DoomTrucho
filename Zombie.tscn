@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://prototype textures/prototype_512x512_green1.png" type="Texture" id=1]
 [ext_resource path="res://prototype textures/prototype_512x512_grey4.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Zombie.gd" type="Script" id=4]
 [ext_resource path="res://lifebar_textures/white squer.png" type="Texture" id=5]
 [ext_resource path="res://lifebar_textures/marco.png" type="Texture" id=6]
+[ext_resource path="res://VidaDeZombie.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleMesh" id=1]
 mid_height = 1.5
@@ -63,17 +64,18 @@ transform = Transform( 1.78522, 0, 0, 0, 1, 0, 0, 0, 1, 0.795248, 1.36586, -1 )
 mesh = SubResource( 6 )
 material/0 = SubResource( 7 )
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+[node name="VidaDeZombie" type="Sprite3D" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 4, 0 )
 billboard = 2
+script = ExtResource( 7 )
 
-[node name="Viewport" type="Viewport" parent="Sprite3D"]
+[node name="Viewport" type="Viewport" parent="VidaDeZombie"]
 size = Vector2( 1000, 100 )
 transparent_bg = true
 usage = 0
 render_target_v_flip = true
 
-[node name="TextureProgress" type="TextureProgress" parent="Sprite3D/Viewport"]
+[node name="Lifebar" type="TextureProgress" parent="VidaDeZombie/Viewport"]
 margin_right = 40.0
 margin_bottom = 40.0
 value = 100.0
