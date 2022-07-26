@@ -1,9 +1,8 @@
 extends KinematicBody
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# Declare member variables here. Examp
+export var health = 2
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,4 +15,7 @@ func _ready():
 #	pass
 
 func bullet_hit():
-	print("hit")
+	#print("hit")
+	health -= 1
+	if health == 0:
+		queue_free()
