@@ -87,3 +87,8 @@ transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -6.09804, 4.76837e-07, -
 
 [node name="Zombie2" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -3.39909, 4.76837e-07, -3.63788 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.989119, -0.108597, 0.09925, 0.00655063, 0.706465, 0.707717, -0.146973, -0.699366, 0.699489, 6.74145, 8.07238, 12.2489 )
+shadow_enabled = true
+directional_shadow_mode = 0
