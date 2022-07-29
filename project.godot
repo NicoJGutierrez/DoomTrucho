@@ -51,6 +51,10 @@ jump={
  ]
 }
 
+[physics]
+
+3d/physics_engine="GodotPhysics"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
