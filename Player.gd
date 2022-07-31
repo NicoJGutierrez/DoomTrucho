@@ -50,12 +50,12 @@ func _physics_process(delta):
 			jumps -= 1
 	
 	elif is_on_floor():
-		print("floor")
+		#print("floor")
 		jumps = 2
 		velocity.y = -on_floor_margin * delta
 		
 	else:
-		print("air")
+		#print("air")
 		velocity.y += gravity * delta
 		
 	
