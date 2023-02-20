@@ -36,6 +36,7 @@ func get_input():
 		input_dir += -camera.global_transform.basis.x
 	if Input.is_action_pressed("p"+player_number+"r"):
 		input_dir += camera.global_transform.basis.x
+	input_dir -= input_dir.y * camera.global_transform.basis.y
 	input_dir = input_dir.normalized()
 	return input_dir
 	
@@ -49,7 +50,7 @@ func get_camera_input(delta, player_speed):
 		rotate_y(delta * movement)
 	if Input.is_action_pressed("p"+player_number+"lr"):
 		rotate_y(-delta * movement)
-	rotation_helper.rotation.x = clamp(rotation_helper.rotation.x, -1.2, 1.2)
+	rotation_helper.rotation.x = clamp(rotation_helper.rotation.x, -1.5, 1.5)
 	
 	
 func _physics_process(delta):
@@ -58,7 +59,6 @@ func _physics_process(delta):
 
 	velocity.x = desired_velocity.x
 	velocity.z = desired_velocity.z
-	
 	
 	if Input.is_action_just_pressed("p"+player_number+"j") and jumps > 0:
 			velocity.y = jumpforce
