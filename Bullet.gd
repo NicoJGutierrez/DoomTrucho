@@ -5,6 +5,7 @@ signal exploded
 export var muzzle_velocity = 25
 export var g = Vector3.DOWN * 20
 export var laiftaim = 2
+export var shooter = ""
 
 var velocity = Vector3.ZERO
 
@@ -19,8 +20,9 @@ func _physics_process(delta):
 
 
 func _on_Bullet_body_entered(body):
-	#print("bum")
-	if body.is_in_group("Zombies"):
-		body.bullet_hit() 
-	emit_signal("exploded", transform.origin)
-	queue_free()
+	#print(body.name)
+	if body.name != shooter:
+		if body.is_in_group("Zombies"):
+			body.bullet_hit() 
+		emit_signal("exploded", transform.origin)
+		queue_free()
