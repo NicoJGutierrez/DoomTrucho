@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://prototype textures/prototype_512x512_grey3.png" type="Texture" id=1]
-[ext_resource path="res://Zpawner.gd" type="Script" id=2]
-[ext_resource path="res://Zombie.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Zombie/Zpawner.gd" type="Script" id=2]
+[ext_resource path="res://Zombie/Zombie.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CylinderMesh" id=1]
 height = 0.5
