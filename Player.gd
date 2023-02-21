@@ -8,22 +8,27 @@ export (PackedScene) var Bullet
 var gravity = -65
 var on_floor_margin = 1
 var max_speed = 8
+var velocity = Vector3()
 var jumps = 2
 var jumpforce = 20
 
-export var VELOCITY_CAMERA_MOVEMENT_FACTOR = 2/3
+export var max_health = 3
+var health
+
 export var player_number = "1"
 
 var camera_sensitivity = 2
+export var VELOCITY_CAMERA_MOVEMENT_FACTOR = 2/3
 
-var velocity = Vector3()
 
 func _ready():
-	#print($Cuerpo.get_layer_mask_bit(0))
+	#hacer cuerpo invisible
 	$Cuerpo.set_layer_mask_bit(int(player_number), true)
 	$Cuerpo.set_layer_mask_bit(0, false)
 	camera.set_cull_mask_bit(int(player_number), false)
-	#print(camera.get_cull_mask_bit(1+player_number_int))
+	
+	#vida inicial
+	health = max_health
 
 func get_input():
 	var input_dir = Vector3()
@@ -42,14 +47,10 @@ func get_input():
 	
 func get_camera_input(delta, player_speed):
 	var movement = camera_sensitivity + (player_speed * VELOCITY_CAMERA_MOVEMENT_FACTOR)
-	if Input.is_action_pressed("p"+player_number+"lu"):
-		rotation_helper.rotate_x(delta * movement)
-	if Input.is_action_pressed("p"+player_number+"ld"):
-		rotation_helper.rotate_x(-delta * movement)
-	if Input.is_action_pressed("p"+player_number+"ll"):
-		rotate_y(delta * movement)
-	if Input.is_action_pressed("p"+player_number+"lr"):
-		rotate_y(-delta * movement)
+	var look_up_down = Input.get_axis("p"+player_number+"lu", "p"+player_number+"ld")
+	rotation_helper.rotate_x(-delta * movement * look_up_down)
+	var look_left_right = Input.get_axis("p"+player_number+"lr", "p"+player_number+"ll")
+	rotate_y(delta * movement * look_left_right)
 	rotation_helper.rotation.x = clamp(rotation_helper.rotation.x, -1.5, 1.5)
 	
 	
@@ -87,3 +88,10 @@ func _physics_process(delta):
 			b.shooter = "Player"
 		else:
 			b.shooter = "Player" + player_number
+			
+func bullet_hit():
+	#print("hit")
+	health -= 1
+	$FloatingLifebar.update(health, max_health)
+	if health == 0:
+		queue_free()
