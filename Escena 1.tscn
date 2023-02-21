@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Deathzone.gd" type="Script" id=2]
 [ext_resource path="res://malla1.meshlib" type="MeshLibrary" id=10]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 5.22067, 1, 6.58422 )
 
 [node name="Escena 1" type="Spatial"]
 
@@ -59,3 +63,12 @@ render_target_update_mode = 3
 [node name="Player2" parent="UI/Cameras/ViewportContainer2/Viewport2" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.24125, 0.0115061, 1 )
 player_number = "2"
+
+[node name="Deathzone" type="Area" parent="." groups=["deathzone"]]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Deathzone"]
+transform = Transform( 16.1279, 0, 0, 0, 1, 0, 0, 0, 20.7196, 0, -9.36863, 0 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Deathzone" to="Deathzone" method="_on_Deathzone_body_entered"]

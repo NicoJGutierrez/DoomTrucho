@@ -95,3 +95,7 @@ func bullet_hit():
 	$FloatingLifebar.update(health, max_health)
 	if health == 0:
 		queue_free()
+		
+func die():
+	queue_free()
+
