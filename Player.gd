@@ -81,13 +81,10 @@ func _physics_process(delta):
 	#disparo
 	if Input.is_action_just_pressed("p"+player_number+"s"):
 		var b = Bullet.instance()
-		owner.add_child(b)
+		get_node('/root/Escena1').add_child(b)
 		b.transform = $Cabeza/Chutspot.global_transform
 		b.velocity = -b.transform.basis.z * b.muzzle_velocity
-		if player_number == "1":
-			b.shooter = "Player"
-		else:
-			b.shooter = "Player" + player_number
+		b.shooter = player_number
 			
 func bullet_hit():
 	#print("hit")

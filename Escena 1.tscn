@@ -1,16 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Deathzone.gd" type="Script" id=2]
+[ext_resource path="res://PlayerSpawner.gd" type="Script" id=3]
 [ext_resource path="res://malla1.meshlib" type="MeshLibrary" id=10]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 5.22067, 1, 6.58422 )
 
-[node name="Escena 1" type="Spatial"]
+[node name="Escena1" type="Spatial"]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.989119, -0.108597, 0.09925, 0.00655063, 0.706465, 0.707717, -0.146973, -0.699366, 0.699489, 6.74145, 8.07238, 12.2489 )
+transform = Transform( 0.989119, -0.108597, 0.09925, 0.00655063, 0.706465, 0.707717, -0.146973, -0.699366, 0.69949, 6.74145, 32.4124, 23.8794 )
 shadow_enabled = true
 directional_shadow_mode = 0
 
@@ -43,6 +44,7 @@ stretch = true
 size = Vector2( 1024, 298 )
 handle_input_locally = false
 render_target_update_mode = 3
+script = ExtResource( 3 )
 
 [node name="Player" parent="UI/Cameras/ViewportContainer/Viewport" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.87677, 0, 1.76637 )
@@ -59,6 +61,7 @@ stretch = true
 size = Vector2( 1024, 298 )
 handle_input_locally = false
 render_target_update_mode = 3
+script = ExtResource( 3 )
 
 [node name="Player2" parent="UI/Cameras/ViewportContainer2/Viewport2" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.24125, 0.0115061, 1 )
@@ -70,5 +73,26 @@ script = ExtResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="Deathzone"]
 transform = Transform( 16.1279, 0, 0, 0, 1, 0, 0, 0, 20.7196, 0, -9.36863, 0 )
 shape = SubResource( 1 )
+
+[node name="Spawnpoints" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.95721, 0 )
+
+[node name="Spatial" type="Spatial" parent="Spawnpoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.015, 20.9568, 0 )
+
+[node name="Spatial2" type="Spatial" parent="Spawnpoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4952, 20.9568, -13.7298 )
+
+[node name="Spatial3" type="Spatial" parent="Spawnpoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0218, 20.9568, -33.4503 )
+
+[node name="Spatial4" type="Spatial" parent="Spawnpoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8711, 20.9568, -43.8457 )
+
+[node name="Spatial5" type="Spatial" parent="Spawnpoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7803, 20.9568, -37.2722 )
+
+[node name="Spatial6" type="Spatial" parent="Spawnpoints"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97702, 20.9568, -26.4633 )
 
 [connection signal="body_entered" from="Deathzone" to="Deathzone" method="_on_Deathzone_body_entered"]

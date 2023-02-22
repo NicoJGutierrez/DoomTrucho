@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://GunsNBullets/Bullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GunsNBullets/Gun.tscn" type="PackedScene" id=2]
@@ -34,6 +34,10 @@ panorama = ExtResource( 4 )
 background_mode = 2
 background_sky = SubResource( 10 )
 
+[sub_resource type="SphereMesh" id=12]
+radius = 0.002
+height = 0.004
+
 [sub_resource type="CylinderShape" id=8]
 radius = 0.444753
 
@@ -61,6 +65,12 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.2
 [node name="Camera" type="Camera" parent="Cabeza"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0999999, 0 )
 environment = SubResource( 11 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cabeza/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.002, -0.25 )
+mesh = SubResource( 12 )
+skeleton = NodePath("../../..")
+material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

@@ -21,8 +21,9 @@ func _physics_process(delta):
 
 func _on_Bullet_body_entered(body):
 	#print(body.name)
-	if body.name != shooter:
-		if body.is_in_group("Players"):
+	if body.is_in_group("Players"):
+		if body.player_number != shooter:
 			body.bullet_hit() 
-		emit_signal("exploded", transform.origin)
+			emit_signal("exploded", transform.origin)
+	else:
 		queue_free()
