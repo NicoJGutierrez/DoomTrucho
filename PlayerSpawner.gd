@@ -4,7 +4,7 @@ extends Viewport
 # Declare member variables here. Examples:
 var spawnpoints = []
 var player = preload("res://Player.tscn")
-var player_number = 0
+export var player_number = 0
 
 
 # Called when the node enters the scene tree for the first time.
