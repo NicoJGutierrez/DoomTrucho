@@ -5,18 +5,19 @@
 
 [sub_resource type="CapsuleShape" id=13]
 radius = 0.03
-height = 0.1
+height = 0.0107273
 
 [sub_resource type="CapsuleMesh" id=14]
 radius = 0.03
-mid_height = 0.1
+mid_height = 0.01
 radial_segments = 16
 rings = 4
 
 [sub_resource type="SpatialMaterial" id=15]
+albedo_color = Color( 0, 0.533333, 0.0980392, 1 )
 albedo_texture = ExtResource( 1 )
 emission_enabled = true
-emission = Color( 0, 0.960784, 0.0352941, 1 )
+emission = Color( 0, 0.270588, 0.00784314, 1 )
 emission_energy = 20.0
 emission_operator = 0
 emission_on_uv2 = false
@@ -31,5 +32,11 @@ shape = SubResource( 13 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 14 )
 material/0 = SubResource( 15 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+light_color = Color( 0.482353, 1, 0.423529, 1 )
+light_energy = 4.67
+light_indirect_energy = 1.369
+spot_angle = 180.0
 
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
