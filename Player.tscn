@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://GunsNBullets/Bullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GunsNBullets/Gun.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://prototype textures/prototype_512x512_yellow.png" type="Texture" id=5]
 [ext_resource path="res://prototype textures/prototype_512x512_orange.png" type="Texture" id=6]
 [ext_resource path="res://FloatingLifebar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prototype textures/prototype_512x512_green1.png" type="Texture" id=8]
 
 [sub_resource type="CylinderMesh" id=5]
 top_radius = 0.5
@@ -25,6 +26,19 @@ height = 0.4
 [sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 6 )
 uv1_scale = Vector3( 2, 2, 1 )
+
+[sub_resource type="ParticlesMaterial" id=16]
+direction = Vector3( 0, 0, -100 )
+spread = 60.0
+initial_velocity = 2.0
+
+[sub_resource type="SpatialMaterial" id=18]
+albedo_texture = ExtResource( 8 )
+
+[sub_resource type="SphereMesh" id=17]
+material = SubResource( 18 )
+radius = 0.01
+height = 0.02
 
 [sub_resource type="PanoramaSky" id=10]
 radiance_size = 4
@@ -64,7 +78,17 @@ skeleton = NodePath("../Cuerpo")
 material/0 = SubResource( 9 )
 
 [node name="Chutspot" type="Spatial" parent="Cabeza"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11608, -0.966779 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11608, -0.979609 )
+
+[node name="Particles" type="Particles" parent="Cabeza/Chutspot"]
+emitting = false
+amount = 1
+lifetime = 0.3
+one_shot = true
+randomness = 0.5
+fixed_fps = 20
+process_material = SubResource( 16 )
+draw_pass_1 = SubResource( 17 )
 
 [node name="Gun2" parent="Cabeza" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.227932, -0.571353 )
@@ -85,3 +109,7 @@ shape = SubResource( 8 )
 
 [node name="FloatingLifebar" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 2.5, 0 )
+
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

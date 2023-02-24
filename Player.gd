@@ -79,13 +79,17 @@ func _physics_process(delta):
 	var _camera_movement = get_camera_input(delta, velocity.length())
 	
 	#disparo
-	if Input.is_action_just_pressed("p"+player_number+"s"):
-		var b = Bullet.instance()
-		get_node('/root/Escena1').add_child(b)
-		b.transform = $Cabeza/Chutspot.global_transform
-		b.velocity = -b.transform.basis.z * b.muzzle_velocity
-		b.shooter = player_number
-			
+	if Input.is_action_pressed("p"+player_number+"s"):
+		if $FireRate.is_stopped():
+			var b = Bullet.instance()
+			get_node('/root/Escena1').add_child(b)
+			b.transform = $Cabeza/Chutspot.global_transform
+			b.velocity = -b.transform.basis.z * b.muzzle_velocity
+			b.shooter = player_number
+			$FireRate.start()
+		$Cabeza/Chutspot/Particles.emitting = true
+	else:
+		$Cabeza/Chutspot/Particles.emitting = false
 func bullet_hit():
 	#print("hit")
 	health -= 1

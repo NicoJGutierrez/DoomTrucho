@@ -33,10 +33,4 @@ shape = SubResource( 13 )
 mesh = SubResource( 14 )
 material/0 = SubResource( 15 )
 
-[node name="SpotLight" type="SpotLight" parent="."]
-light_color = Color( 0.482353, 1, 0.423529, 1 )
-light_energy = 4.67
-light_indirect_energy = 1.369
-spot_angle = 180.0
-
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
