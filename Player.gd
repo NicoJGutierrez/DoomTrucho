@@ -74,6 +74,11 @@ func _physics_process(delta):
 		#print("air")
 		velocity.y += gravity * delta
 	
+	if Input.is_action_just_pressed("p"+player_number+"sl"):
+		$AnimationPlayer.play("Slide")
+	if Input.is_action_just_released("p"+player_number+"sl"):
+		$AnimationPlayer.play("RESET")
+	
 	velocity = move_and_slide(velocity, Vector3.UP, true)
 	
 	var _camera_movement = get_camera_input(delta, velocity.length())
