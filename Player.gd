@@ -38,20 +38,20 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if in_air == true and is_on_floor():
-		$Bhop.start()
-		in_air = false
+	
 	
 	var desired_velocity = get_input() * max_speed
 	if not Input.is_action_pressed("p"+player_number+"sl"):
-		# movimiento fome
 		if is_on_floor():
+			if in_air == true:
+				$Bhop.start()
+				in_air = false
 			applied_gravity = gravity
 			if $Bhop.is_stopped():
 				stored_velocity = Vector3(0,0,0)
 		velocity.x = desired_velocity.x
 		velocity.z = desired_velocity.z
-			
+		stored_velocity = stored_velocity.length() * direction_forward()
 	
 	#jump + doublejump
 	if Input.is_action_just_pressed("p"+player_number+"j") and jumps > 0:
@@ -66,7 +66,10 @@ func _physics_process(delta):
 	else:
 		velocity.y += applied_gravity * delta
 	
-	#Slide
+	#   ===================
+	#	==== S L I D E ====
+	#   ===================
+	
 	if Input.is_action_just_pressed("p"+player_number+"sl"):
 		$AnimationPlayer.play("Slide")
 		if is_on_floor():
@@ -74,14 +77,14 @@ func _physics_process(delta):
 			if direction.length() == 0:
 				direction = direction_forward()
 			var slide = slide_speed * direction
-			velocity += Vector3(slide.x, 0, slide.z)
+			stored_velocity += Vector3(slide.x, 0, slide.z)
 		else:
 			velocity += Vector3(0, gravity, 0)
 			applied_gravity = gravity * 3
 	if Input.is_action_just_released("p"+player_number+"sl"):
 		$AnimationPlayer.play("RESET")
 	
-	velocity = move_and_slide(velocity, Vector3.UP, true)
+	move_and_slide(velocity + stored_velocity, Vector3.UP, true)
 	
 	var _camera_movement = get_camera_input(delta, velocity.length())
 	
@@ -134,5 +137,6 @@ func die():
 	queue_free()
 	
 func direction_forward():
-	return -camera.global_transform.basis.z
-
+	var input_dir = -camera.global_transform.basis.z
+	input_dir -= input_dir.y * camera.global_transform.basis.y
+	return input_dir.normalized()
