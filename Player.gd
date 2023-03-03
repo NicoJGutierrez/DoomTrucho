@@ -45,14 +45,12 @@ func _physics_process(delta):
 	var desired_velocity = get_input() * max_speed
 	if not Input.is_action_pressed("p"+player_number+"sl"):
 		# movimiento fome
-		if is_on_floor() and $Bhop.is_stopped():
-			velocity.x = desired_velocity.x
-			velocity.z = desired_velocity.z
+		if is_on_floor():
 			applied_gravity = gravity
-		# movimiento aéreo
-		else:
-			velocity.x += desired_velocity.x * 0.05
-			velocity.z += desired_velocity.z * 0.05
+			if $Bhop.is_stopped():
+				stored_velocity = Vector3(0,0,0)
+		velocity.x = desired_velocity.x
+		velocity.z = desired_velocity.z
 			
 	
 	#jump + doublejump
@@ -72,10 +70,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("p"+player_number+"sl"):
 		$AnimationPlayer.play("Slide")
 		if is_on_floor():
-			var slide = slide_speed * get_input()
+			var direction = get_input()
+			if direction.length() == 0:
+				direction = direction_forward()
+			var slide = slide_speed * direction
 			velocity += Vector3(slide.x, 0, slide.z)
 		else:
-			velocity += Vector3(0, -slide_speed, 0)
+			velocity += Vector3(0, gravity, 0)
 			applied_gravity = gravity * 3
 	if Input.is_action_just_released("p"+player_number+"sl"):
 		$AnimationPlayer.play("RESET")
@@ -124,7 +125,6 @@ func shoot(projectile):
 			$FireRate.start()
 
 func bullet_hit():
-	#print("hit")
 	health -= 1
 	$FloatingLifebar.update(health, max_health)
 	if health == 0:
@@ -132,4 +132,7 @@ func bullet_hit():
 		
 func die():
 	queue_free()
+	
+func direction_forward():
+	return -camera.global_transform.basis.z
 

@@ -11,7 +11,6 @@ export var player_number = 0
 func _ready():
 	spawnpoints = get_node('/root/Escena1/Spawnpoints').get_children()
 	player_number = get_child(0).player_number
-	print(player_number)
 	pass # Replace with function body.
 
 
