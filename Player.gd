@@ -74,8 +74,6 @@ func _physics_process(delta):
 		$AnimationPlayer.play("Slide")
 		if is_on_floor():
 			var direction = get_input()
-			if direction.length() == 0:
-				direction = direction_forward()
 			var slide = slide_speed * direction
 			stored_velocity += Vector3(slide.x, 0, slide.z)
 		else:
