@@ -22,7 +22,7 @@ var health
 
 export var player_number = "1"
 
-var camera_sensitivity = 2
+var camera_sensitivity = 3
 export var VELOCITY_CAMERA_MOVEMENT_FACTOR = 2/3
 
 
@@ -80,7 +80,6 @@ func _physics_process(delta):
 			stored_velocity += Vector3(slide.x, 0, slide.z)
 		else:
 			velocity += Vector3(0, gravity, 0)
-			applied_gravity = gravity * 3
 	if Input.is_action_just_released("p"+player_number+"sl"):
 		$AnimationPlayer.play("RESET")
 	
@@ -113,9 +112,9 @@ func get_input():
 func get_camera_input(delta, player_speed):
 	var movement = camera_sensitivity + (player_speed * VELOCITY_CAMERA_MOVEMENT_FACTOR)
 	var look_up_down = Input.get_axis("p"+player_number+"lu", "p"+player_number+"ld")
-	rotation_helper.rotate_x(-delta * movement * look_up_down)
+	rotation_helper.rotate_x(-delta * movement * look_up_down * abs(look_up_down))
 	var look_left_right = Input.get_axis("p"+player_number+"lr", "p"+player_number+"ll")
-	rotate_y(delta * movement * look_left_right)
+	rotate_y(delta * movement * look_left_right * abs(look_left_right))
 	rotation_helper.rotation.x = clamp(rotation_helper.rotation.x, -1.5, 1.5)
 
 func shoot(projectile):
