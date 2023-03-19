@@ -2,8 +2,10 @@ extends KinematicBody
 
 onready var camera = $Cabeza/Camera
 onready var rotation_helper = $Cabeza
+onready var raycast = $Cabeza/Camera/RayCast
 
 export (PackedScene) var Bullet
+export (PackedScene) var BulletSticker
 
 export var gravity = -50
 var applied_gravity = gravity
@@ -34,7 +36,8 @@ func _ready():
 	
 	#vida inicial
 	health = max_health
-
+	
+	raycast.add_exception($".")
 
 func _physics_process(delta):
 	
@@ -81,7 +84,7 @@ func _physics_process(delta):
 	if Input.is_action_just_released("p"+player_number+"sl"):
 		$AnimationPlayer.play("RESET")
 	
-	move_and_slide(velocity + stored_velocity, Vector3.UP, true)
+	var movement = move_and_slide(velocity + stored_velocity, Vector3.UP, true)
 	
 	var _camera_movement = get_camera_input(delta, velocity.length())
 	
@@ -127,11 +130,18 @@ func shoot(projectile):
 
 func shoot_raycast():
 	if $FireRate.is_stopped():
-		if $Cabeza/Chutspot/RayCast.is_colliding():
-			var target = $Cabeza/Chutspot/RayCast.get_collider()
+		if raycast.is_colliding():
+			var target = raycast.get_collider()
 			if target.is_in_group("Players"):
+				print("ep")
 				if target.player_number != player_number:
 					target.bullet_hit()
+			else:
+				print("op")
+				var sticker = BulletSticker.instance()
+				target.add_child(sticker)
+				sticker.global_transform.origin = raycast.get_collision_point()
+				sticker.look_at(sticker.global_transform.origin + raycast.get_collision_normal(), Vector3.UP)
 		$FireRate.start()
 
 func bullet_hit():

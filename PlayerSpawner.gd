@@ -14,7 +14,7 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _process(delta):
+func _process(_delta):
 	if get_child_count() == 0:
 		var p = player.instance()
 		p.player_number = player_number
