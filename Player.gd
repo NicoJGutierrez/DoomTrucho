@@ -133,17 +133,12 @@ func shoot_raycast():
 	if $FireRate.is_stopped():
 		if raycast.is_colliding():
 			var target = raycast.get_collider()
-			
-			#decal
-			var sticker = BulletSticker.instance()
-			target.add_child(sticker)
-			sticker.global_transform.origin = raycast.get_collision_point()
-			sticker.look_at(sticker.global_transform.origin + raycast.get_collision_normal(), Vector3.UP)
-			
 			#hit
 			if target.is_in_group("Players"):
 				if target.player_number != player_number:
 					target.bullet_hit()
+			else:
+				add_sticker()
 		$FireRate.start()
 
 func bullet_hit():
@@ -159,3 +154,17 @@ func direction_forward():
 	var input_dir = -camera.global_transform.basis.z
 	input_dir -= input_dir.y * camera.global_transform.basis.y
 	return input_dir.normalized()
+	
+func add_sticker():
+	var sticker = BulletSticker.instance()
+	get_tree().get_root().add_child(sticker)
+	sticker.global_transform.origin = raycast.get_collision_point()
+	var surface_dir_up = Vector3(0,1,0)
+	var surface_dir_down = Vector3(0,-1,0)
+	
+	if raycast.get_collision_normal() == surface_dir_up:
+		sticker.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.RIGHT)
+	elif raycast.get_collision_normal() == surface_dir_down:
+		sticker.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.RIGHT)
+	else:
+		sticker.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.DOWN)
