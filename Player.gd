@@ -26,6 +26,7 @@ export var player_number = "1"
 
 var camera_sensitivity = 3
 export var VELOCITY_CAMERA_MOVEMENT_FACTOR = 2/3
+export var CROUCH_FACTOR = 1/2
 
 
 func _ready():
@@ -56,6 +57,10 @@ func _physics_process(delta):
 		velocity.x = desired_velocity.x
 		velocity.z = desired_velocity.z
 		stored_velocity = stored_velocity.length() * direction_forward()
+	elif stored_velocity == Vector3.ZERO:
+		velocity.x = desired_velocity.x * CROUCH_FACTOR
+		velocity.z = desired_velocity.z * CROUCH_FACTOR
+		
 	
 	#jump + doublejump
 	if Input.is_action_just_pressed("p"+player_number+"j") and jumps > 0:
@@ -85,7 +90,7 @@ func _physics_process(delta):
 	if Input.is_action_just_released("p"+player_number+"sl"):
 		$AnimationPlayer.play("RESET")
 	
-	var movement = move_and_slide(velocity + stored_velocity, Vector3.UP, true)
+	var _movement = move_and_slide(velocity + stored_velocity, Vector3.UP, true)
 	
 	var _camera_movement = get_camera_input(delta, velocity.length())
 	
