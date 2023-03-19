@@ -87,7 +87,7 @@ func _physics_process(delta):
 	
 	#disparo
 	if Input.is_action_pressed("p"+player_number+"s"):
-		shoot(Bullet)
+		shoot_raycast() #shoot(Bullet)
 		$Cabeza/Chutspot/Particles.emitting = true
 		$Cabeza/Gun2/AnimationPlayer.play("Shoot")
 	else:
@@ -124,6 +124,15 @@ func shoot(projectile):
 			b.velocity = -b.transform.basis.z * b.muzzle_velocity
 			b.shooter = player_number
 			$FireRate.start()
+
+func shoot_raycast():
+	if $FireRate.is_stopped():
+		if $Cabeza/Chutspot/RayCast.is_colliding():
+			var target = $Cabeza/Chutspot/RayCast.get_collider()
+			if target.is_in_group("Players"):
+				if target.player_number != player_number:
+					target.bullet_hit()
+		$FireRate.start()
 
 func bullet_hit():
 	health -= 1

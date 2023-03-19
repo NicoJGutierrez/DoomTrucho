@@ -266,6 +266,7 @@ process_material = SubResource( 16 )
 draw_pass_1 = SubResource( 17 )
 
 [node name="RayCast" type="RayCast" parent="Cabeza/Chutspot"]
+enabled = true
 cast_to = Vector3( 0, 0, -500 )
 
 [node name="Gun2" parent="Cabeza" instance=ExtResource( 2 )]
