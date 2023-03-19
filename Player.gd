@@ -89,6 +89,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("p"+player_number+"s"):
 		shoot(Bullet)
 		$Cabeza/Chutspot/Particles.emitting = true
+		$Cabeza/Gun2/AnimationPlayer.play("Shoot")
 	else:
 		$Cabeza/Chutspot/Particles.emitting = false
 

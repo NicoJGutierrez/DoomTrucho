@@ -265,6 +265,9 @@ fixed_fps = 20
 process_material = SubResource( 16 )
 draw_pass_1 = SubResource( 17 )
 
+[node name="RayCast" type="RayCast" parent="Cabeza/Chutspot"]
+cast_to = Vector3( 0, 0, -500 )
+
 [node name="Gun2" parent="Cabeza" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.227932, -0.571353 )
 
