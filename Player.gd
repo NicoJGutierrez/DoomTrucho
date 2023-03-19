@@ -37,6 +37,7 @@ func _ready():
 	#vida inicial
 	health = max_health
 	
+	#raycast ignores self
 	raycast.add_exception($".")
 
 func _physics_process(delta):
@@ -132,16 +133,17 @@ func shoot_raycast():
 	if $FireRate.is_stopped():
 		if raycast.is_colliding():
 			var target = raycast.get_collider()
+			
+			#decal
+			var sticker = BulletSticker.instance()
+			target.add_child(sticker)
+			sticker.global_transform.origin = raycast.get_collision_point()
+			sticker.look_at(sticker.global_transform.origin + raycast.get_collision_normal(), Vector3.UP)
+			
+			#hit
 			if target.is_in_group("Players"):
-				print("ep")
 				if target.player_number != player_number:
 					target.bullet_hit()
-			else:
-				print("op")
-				var sticker = BulletSticker.instance()
-				target.add_child(sticker)
-				sticker.global_transform.origin = raycast.get_collision_point()
-				sticker.look_at(sticker.global_transform.origin + raycast.get_collision_normal(), Vector3.UP)
 		$FireRate.start()
 
 func bullet_hit():
