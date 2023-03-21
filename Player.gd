@@ -26,7 +26,7 @@ export var player_number = "1"
 
 var camera_sensitivity = 3
 export var VELOCITY_CAMERA_MOVEMENT_FACTOR = 2/3
-export var CROUCH_FACTOR = 1/2
+export var CROUCH_FACTOR = 2/3
 
 
 func _ready():
@@ -97,10 +97,7 @@ func _physics_process(delta):
 	#disparo
 	if Input.is_action_pressed("p"+player_number+"s"):
 		shoot_raycast() #shoot(Bullet)
-		$Cabeza/Chutspot/Particles.emitting = true
 		$Cabeza/Gun2/AnimationPlayer.play("Shoot")
-	else:
-		$Cabeza/Chutspot/Particles.emitting = false
 
 func get_input():
 	var input_dir = Vector3()
@@ -136,6 +133,7 @@ func shoot(projectile):
 
 func shoot_raycast():
 	if $FireRate.is_stopped():
+		shoot_particles()
 		if raycast.is_colliding():
 			var target = raycast.get_collider()
 			#hit
@@ -160,6 +158,12 @@ func direction_forward():
 	input_dir -= input_dir.y * camera.global_transform.basis.y
 	return input_dir.normalized()
 	
+func shoot_particles():
+		$Cabeza/Chutspot/ShootParticle.restart()
+		$Cabeza/Chutspot/ShootParticle.emitting = true
+		$Cabeza/Chutspot/MuzzleFlash.restart()
+		$Cabeza/Chutspot/MuzzleFlash.emitting = true
+
 func add_sticker():
 	var sticker = BulletSticker.instance()
 	get_tree().get_root().add_child(sticker)
