@@ -159,10 +159,10 @@ func direction_forward():
 	return input_dir.normalized()
 	
 func shoot_particles():
-		$Cabeza/Chutspot/ShootParticle.restart()
-		$Cabeza/Chutspot/ShootParticle.emitting = true
-		$Cabeza/Chutspot/MuzzleFlash.restart()
-		$Cabeza/Chutspot/MuzzleFlash.emitting = true
+		$Cabeza/Gun2/Cube_007/MuzzleFlash.restart()
+		$Cabeza/Gun2/Cube_007/MuzzleFlash.emitting = true
+		$Cabeza/Gun2/Cube_007/ShootParticle.restart()
+		$Cabeza/Gun2/Cube_007/ShootParticle.emitting = true
 
 func add_sticker():
 	var sticker = BulletSticker.instance()
