@@ -14,10 +14,12 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Doom Trucho"
+config/name="DoomTrucho"
 run/main_scene="res://Escena 1.tscn"
-boot_splash/image="res://prototype textures/prototype_512x512_red.png"
-config/icon="res://prototype textures/prototype_512x512_red.png"
+boot_splash/image="res://UISprites/DoomTruchoBanner.png"
+boot_splash/bg_color=Color( 0.0352941, 0.639216, 0, 1 )
+config/icon="res://UISprites/DoomTruchoBanner.png"
+config/windows_native_icon="res://UISprites/DoomTruchoBanner.ico"
 
 [display]
 

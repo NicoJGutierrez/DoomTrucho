@@ -26,7 +26,7 @@ export var player_number = "1"
 
 var camera_sensitivity = 3
 export var VELOCITY_CAMERA_MOVEMENT_FACTOR = 2/3
-export var CROUCH_FACTOR = 2/3
+export var CROUCH_FACTOR = 0.7
 
 
 func _ready():
